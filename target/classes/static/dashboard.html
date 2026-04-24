@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Medical Health Report Analyzer</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>🏥 Medical Health Report Analyzer</h1>
+            <div class="header-actions">
+                <span id="userName" style="font-weight:500;color:rgba(255,255,255,0.9)"></span>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
+                <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('input')">🔬 Lab Input</button>
+            <button class="tab-btn" onclick="showTab('results')">📊 Results</button>
+            <button class="tab-btn" onclick="showTab('history')">📋 History</button>
+        </div>
+
+        <!-- Tab: Lab Input -->
+        <div id="tab-input">
+            <div class="card">
+                <h2 style="margin-bottom:20px;color:var(--primary)">Enter Lab Values</h2>
+                <form id="labForm">
+                    <h3 style="margin-bottom:12px;color:var(--text-secondary)">Body Measurements</h3>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Height (cm)</label><input type="number" step="0.1" id="height" placeholder="e.g. 170"></div>
+                        <div class="form-group"><label>Weight (kg)</label><input type="number" step="0.1" id="weight" placeholder="e.g. 70"></div>
+                    </div>
+                    <h3 style="margin:20px 0 12px;color:var(--text-secondary)">Blood Parameters</h3>
+                    <div class="grid-3">
+                        <div class="form-group"><label>Hemoglobin (g/dL)</label><input type="number" step="0.1" id="hemoglobin" placeholder="12-17.5"></div>
+                        <div class="form-group"><label>RBC (million/µL)</label><input type="number" step="0.1" id="rbc" placeholder="4.5-5.5"></div>
+                        <div class="form-group"><label>WBC (cells/µL)</label><input type="number" step="1" id="wbc" placeholder="4000-11000"></div>
+                        <div class="form-group"><label>Platelets (cells/µL)</label><input type="number" step="1" id="platelets" placeholder="150000-400000"></div>
+                        <div class="form-group"><label>Blood Sugar (mg/dL)</label><input type="number" step="1" id="bloodSugar" placeholder="70-100"></div>
+                        <div class="form-group"><label>Cholesterol (mg/dL)</label><input type="number" step="1" id="cholesterol" placeholder="<200"></div>
+                    </div>
+                    <h3 style="margin:20px 0 12px;color:var(--text-secondary)">Vitamins & Minerals</h3>
+                    <div class="grid-3">
+                        <div class="form-group"><label>Vitamin D (ng/mL)</label><input type="number" step="0.1" id="vitaminD" placeholder="30-100"></div>
+                        <div class="form-group"><label>Vitamin B12 (pg/mL)</label><input type="number" step="1" id="vitaminB12" placeholder="200-900"></div>
+                        <div class="form-group"><label>Iron (µg/dL)</label><input type="number" step="1" id="iron" placeholder="60-170"></div>
+                        <div class="form-group"><label>Calcium (mg/dL)</label><input type="number" step="0.1" id="calcium" placeholder="8.5-10.5"></div>
+                        <div class="form-group"><label>TSH (mIU/L)</label><input type="number" step="0.01" id="tsh" placeholder="0.4-4.0"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top:16px;">
+                        <span id="analyzeBtn">🔍 Analyze Health</span>
+                    </button>
+                </form>
+
+                <hr style="margin:30px 0">
+
+<h3 style="margin-bottom:12px;color:var(--text-secondary)">Upload Medical Report</h3>
+
+<div class="form-group">
+<input type="file" id="reportFile" accept="image/*,.pdf" />
+</div>
+
+<button type="button" class="btn btn-primary" onclick="uploadReport()">
+        📤 Upload & Analyze Report
+</button>
+
+            </div>
+        </div>
+
+        <!-- Tab: Results -->
+        <div id="tab-results" style="display:none">
+            <div id="resultsContent"></div>
+        </div>
+
+        <!-- Tab: History -->
+        <div id="tab-history" style="display:none">
+            <div class="card">
+                <h2 style="margin-bottom:16px;color:var(--primary)">Analysis History</h2>
+                <div id="historyContent"><p style="color:var(--text-secondary)">Loading...</p></div>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            ⚠️ <strong>Medical Disclaimer:</strong> This tool is for informational purposes only and does not constitute medical advice. The analysis is based on general reference ranges and may not account for individual variations. Always consult a qualified healthcare professional for accurate diagnosis and treatment.
+        </div>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>
